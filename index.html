@@ -9,48 +9,59 @@
 <body>
     <div class="container" dir="rtl">
         <h1>מחשבון קלוריות</h1>
-        
+
         <!-- Search Bar -->
         <label for="product-search">חפש מוצר</label>
         <div class="search-container">
             <input type="text" id="product-search" placeholder="הזן שם מוצר...">
-            <!-- <button id="search-button">חפש</button> -->
         </div>
-    
+
         <!-- Popular Products Section -->
         <h2>מוצרים פופולריים</h2>
         <div id="popular-products" class="popular-container"></div>
 
-        <!-- Target Carbs Input -->
-        <label for="target-carbs">כמות פחמימות נדרשת (גרם)</label>
-        <input type="number" id="target-carbs" placeholder="הזן כמות פחמימות בגרם...">
-        <button id="calculate-grams">חשב משקל</button>
-        <div id="calculated-weight">משקל מחושב: <span>0</span> גרם</div>
-
-        <!-- Weight Input -->
-        <label for="weight">משקל (גרם)</label>
-        <input type="number" id="weight" placeholder="הזן משקל בגרם...">
-
-        <!-- Button to Add Product to List -->
-        <button id="add-to-list">הוסף לרשימה</button>
-    
-        <!-- Results and History -->
-        <div id="calculation-results">
-            <h2>ערכים תזונתיים</h2>
-            <ul id="results-list"></ul>
-            <h2>תוצאות החישוב</h2>
-            <div id="total-calories">סה״כ קלוריות: <span>0</span></div>
-            <div id="total-carbs">סה״כ פחמימות: <span>0</span></div>
-            <div id="total-fat">סה״כ שומן: <span>0</span></div>
-
+        <div class="card" id="nutrition-card">
+                <h2>ערכים תזונתיים</h2>
+                <ul id="results-list"></ul>
         </div>
-    
-        <h2>היסטוריה</h2>
-        <ul id="history-list"></ul>
-        <button id="clear-history">נקה רשימה</button>
-    </div>
-    <div>
+
+        <!-- Carb-Based Calculation Card -->
+        <div class="card">
+            <h2>חישוב לפי פחמימות</h2>
+            <label for="target-carbs">כמות פחמימות נדרשת (גרם)</label>
+            <input type="number" id="target-carbs" placeholder="הזן כמות פחמימות בגרם...">
+            <button id="calculate-grams">חשב משקל</button>
+            <div id="calculated-weight">משקל מחושב: <span>0</span> גרם</div>
+        </div>
+
+        <!-- Weight-Based Calculation Card -->
+        <div class="card">
+            <h2>חישוב לפי משקל</h2>
+            <label for="weight">משקל (גרם)</label>
+            <input type="number" id="weight" placeholder="הזן משקל בגרם...">
+            <button id="add-to-list">הוסף לרשימה</button>
+        </div>
+
+        <!-- Results and History -->
+        <div class="card" id="nutrition-card">
+            <div id="calculation-results">
+                <h2>תוצאות החישוב</h2>
+                <div id="total-calories">סה״כ קלוריות: <span>0</span></div>
+                <div id="total-carbs">סה״כ פחמימות: <span>0</span></div>
+                <div id="total-fat">סה״כ שומן: <span>0</span></div>
+                <div id="total-protein">סה״כ חלבון: <span>0</span></div>
+            </div>
+        </div>
+        <!-- History -->
+        <div class="card" id="nutrition-card">
+            <h2>היסטוריה</h2>
+            <ul id="history-list"></ul>
+            <button id="clear-history">נקה רשימה</button>
+        </div>
         <script src="app.js"></script>
+        <script src="app.js"></script>
+    </div>
+    <script src="app.js"></script>
     </div>
 </body>
 </html>

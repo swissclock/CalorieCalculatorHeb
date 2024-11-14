@@ -96,7 +96,7 @@ function addToList() {
 
     if (currentProduct && weight > 0) {
         const productNutrition = nutritionData[currentProduct.id];
-        let totalCalories = 0, totalCarbs = 0, totalFat = 0;
+        let totalCalories = 0, totalCarbs = 0, totalFat = 0, totalProtein = 0;
 
         productNutrition.forEach(nutrient => {
             const nutrientName = nutrientDictionary.find(dict => dict.id === nutrient.id)?.value;
@@ -105,6 +105,7 @@ function addToList() {
             if (nutrientName === "קלוריות") totalCalories += nutrientValue;
             if (nutrientName === "פחמימות") totalCarbs += nutrientValue;
             if (nutrientName === "שומן") totalFat += nutrientValue;
+            if (nutrientName === "חלבון") totalProtein += nutrientValue;
         });
 
         historyList.push({
@@ -112,7 +113,8 @@ function addToList() {
             weight,
             calories: totalCalories.toFixed(2),
             carbs: totalCarbs.toFixed(2),
-            fat: totalFat.toFixed(2)
+            fat: totalFat.toFixed(2),
+            protein: totalProtein.toFixed(2)
         });
 
         displayHistory();
@@ -125,15 +127,18 @@ function updateTotals() {
     let totalCalories = 0;
     let totalCarbs = 0;
     let totalFats = 0;    
+    let totalProtein = 0;    
     historyList.forEach(entry => {
         totalCalories += parseFloat(entry.calories);
         totalCarbs += parseFloat(entry.carbs);
         totalFats += parseFloat(entry.fat);
+        totalProtein += parseFloat(entry.protein);
 
     });
     document.getElementById("total-calories").textContent = `סה״כ קלוריות: ${totalCalories.toFixed(2)}`;
     document.getElementById("total-carbs").textContent = `סה״כ פחמימות: ${totalCarbs.toFixed(2)}`;
     document.getElementById("total-fat").textContent = `סה״כ שומן: ${totalFats.toFixed(2)}`;
+    document.getElementById("total-protein").textContent = `סה״כ חלבון: ${totalProtein.toFixed(2)}`;
 }
 
 // Display history list

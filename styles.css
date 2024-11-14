@@ -194,7 +194,8 @@ li {
 
 #total-carbs,
 #total-calories,
-#total-fat {
+#total-fat,
+#total-protein {
     margin-top: 15px;
     margin-bottom: 10px;
     font-size: 1.1em;
@@ -226,6 +227,60 @@ li {
 }
 
 #calculated-weight span {
+    font-weight: bold;
+    color: #FF5722;
+}
+
+/* Card styling */
+.card {
+    background-color: #f1f1f1;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Header styling for each card */
+.card h2 {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Specific elements within each card */
+#calculated-weight, #target-carbs, #weight, #add-to-list, #calculate-grams {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+/* Button styling within cards */
+.card button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.card button:hover {
+    background-color: #45a049;
+}
+
+/* Nutritional Values Card */
+#nutrition-card {
+    margin-top: 20px;
+}
+
+#nutrition-card div {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+#nutrition-card span {
     font-weight: bold;
     color: #FF5722;
 }
