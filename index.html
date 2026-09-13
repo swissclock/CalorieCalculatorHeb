@@ -1,66 +1,144 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calorie Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מחשבון קלוריות ופחמימות</title>
+<meta name="description" content="חיפוש ערכים תזונתיים, חישוב מנה לפי משקל או לפי כמות פחמימות, וסיכום יומי.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="קלוריות">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container" dir="rtl">
-        <h1>מחשבון קלוריות</h1>
 
-        <!-- Search Bar -->
-        <label for="product-search">חפש מוצר</label>
-        <div class="search-container">
-            <input type="text" id="product-search" placeholder="הזן שם מוצר...">
-        </div>
+<a class="skip" href="#search-input">דלג לחיפוש</a>
 
-        <!-- Popular Products Section -->
-        <h2>מוצרים פופולריים</h2>
-        <div id="popular-products" class="popular-container"></div>
+<header class="masthead">
+  <h1>מחשבון קלוריות</h1>
+  <p>ערכים תזונתיים וספירת פחמימות</p>
+</header>
 
-        <div class="card" id="nutrition-card">
-                <h2>ערכים תזונתיים</h2>
-                <ul id="results-list"></ul>
-        </div>
-        <!-- Carb-Based Calculation Card -->
-        <div class="card">
-            <h2>חישוב לפי פחמימות</h2>
-            <label for="target-carbs">כמות פחמימות נדרשת (גרם)</label>
-            <input type="number" id="target-carbs" placeholder="הזן כמות פחמימות בגרם...">
-            <button id="calculate-grams">חשב משקל</button>
-            <div id="calculated-weight">משקל מחושב: <span>0</span> גרם</div>
-        </div>
+<main>
 
-        <!-- Weight-Based Calculation Card -->
-        <div class="card">
-            <h2>חישוב לפי משקל</h2>
-            <label for="weight">משקל (גרם)</label>
-            <input type="number" id="weight" placeholder="הזן משקל בגרם...">
-            <button id="add-to-list">הוסף לרשימה</button>
-        </div>
-
-        <!-- Results and History -->
-        <div class="card" id="nutrition-card">
-            <div id="calculation-results">
-                <h2>תוצאות החישוב</h2>
-                <div id="total-calories">סה״כ קלוריות: <span>0</span></div>
-                <div id="total-carbs">סה״כ פחמימות: <span>0</span></div>
-                <div id="total-fat">סה״כ שומן: <span>0</span></div>
-                <div id="total-protein">סה״כ חלבון: <span>0</span></div>
-            </div>
-        </div>
-        <!-- History -->
-        <div class="card" id="nutrition-card">
-            <h2>היסטוריה</h2>
-            <ul id="history-list"></ul>
-            <button id="clear-history">נקה רשימה</button>
-        </div>
-        <script src="app.js"></script>
-        <script src="app.js"></script>
+  <!-- ── Search ───────────────────────────────────────────── -->
+  <section class="search" aria-label="חיפוש מוצר">
+    <div class="field">
+      <svg class="field__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+        <circle cx="9" cy="9" r="6"/><path d="M13.5 13.5 L17.5 17.5"/>
+      </svg>
+      <input
+        id="search-input"
+        type="text"
+        role="combobox"
+        aria-expanded="false"
+        aria-controls="search-results"
+        aria-autocomplete="list"
+        aria-label="חיפוש מוצר"
+        placeholder="טוען…"
+        disabled
+        autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
+        enterkeyhint="search">
+      <button id="search-clear" class="field__clear" type="button" aria-label="נקה חיפוש" hidden>
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="M6 6 L14 14 M14 6 L6 14"/>
+        </svg>
+      </button>
     </div>
-    <script src="app.js"></script>
+    <ul id="search-results" class="results" role="listbox" aria-label="תוצאות חיפוש" hidden></ul>
+    <p id="search-status" class="status" role="status" aria-live="polite"></p>
+    <noscript>
+      <p class="status">המחשבון דורש JavaScript כדי לפעול.</p>
+    </noscript>
+  </section>
+
+  <!-- ── Common foods ─────────────────────────────────────── -->
+  <section id="common" class="common" aria-labelledby="common-title" hidden>
+    <h2 id="common-title" class="eyebrow">מוצרים נפוצים</h2>
+    <div id="common-list" class="chips"></div>
+  </section>
+
+  <!-- ── Selected food ────────────────────────────────────── -->
+  <section id="food" class="food" aria-labelledby="food-name" hidden>
+
+    <div class="food__head">
+      <h2 id="food-name"></h2>
+      <p class="eyebrow">ל־100 גרם</p>
     </div>
+
+    <dl id="food-macros" class="macros"></dl>
+
+    <details id="food-extra-wrap" class="extra">
+      <summary>ערכים נוספים</summary>
+      <dl id="food-extra" class="rows"></dl>
+    </details>
+
+    <!-- portion calculator -->
+    <div class="portion">
+      <div class="segmented" role="radiogroup" aria-label="אופן חישוב המנה">
+        <button type="button" role="radio" data-mode="grams" aria-checked="true">לפי משקל</button>
+        <button type="button" role="radio" data-mode="carbs" aria-checked="false">לפי פחמימות</button>
+      </div>
+
+      <div class="field field--amount">
+        <input id="amount" type="number" inputmode="decimal" min="0" step="any"
+               placeholder="0" aria-label="משקל בגרמים">
+        <span id="amount-unit" class="field__unit">גרם</span>
+      </div>
+
+      <p id="portion-note" class="note" role="status" aria-live="polite"></p>
+
+      <p id="portion-label" class="eyebrow"></p>
+      <dl id="portion-macros" class="macros macros--portion"></dl>
+
+      <button id="add" class="btn btn--primary" type="button">הוסף ליומן</button>
+    </div>
+  </section>
+
+  <!-- ── Journal ──────────────────────────────────────────── -->
+  <section class="journal" aria-labelledby="journal-title">
+    <div class="journal__head">
+      <h2 id="journal-title" class="eyebrow">היומן</h2>
+      <button id="clear" class="btn btn--quiet" type="button" hidden>נקה הכל</button>
+    </div>
+
+    <div id="journal-empty" class="empty">
+      <p>עדיין לא הוספת פריטים.</p>
+      <p>חפשו מוצר, הזינו כמות והוסיפו ליומן.</p>
+    </div>
+
+    <div id="journal-body" hidden>
+      <div class="total">
+        <span id="total-kcal" class="total__num">0</span>
+        <span class="total__unit">קק״ל</span>
+      </div>
+
+      <div id="split" class="split" role="img" aria-label="פילוח קלוריות לפי אבות מזון">
+        <span class="split__seg" data-macro="carbs"></span>
+        <span class="split__seg" data-macro="fat"></span>
+        <span class="split__seg" data-macro="protein"></span>
+      </div>
+
+      <dl id="total-macros" class="macros macros--total"></dl>
+
+      <ul id="entries" class="entries"></ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="colophon">
+  <p>הערכים מחושבים לפי 100 גרם ומיועדים להערכה בלבד.</p>
+</footer>
+
+<script src="app.js" defer></script>
 </body>
 </html>

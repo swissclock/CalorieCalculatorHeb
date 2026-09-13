@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="מחשבון קלוריות">
+  <rect width="80" height="80" rx="18" fill="#1a1a19"/>
+  <g fill="none" stroke-width="11" stroke-linecap="butt"
+     transform="rotate(-90 40 40)">
+    <circle cx="40" cy="40" r="23" stroke="#3f6f9c"
+            stroke-dasharray="61 84" stroke-dashoffset="0"/>
+    <circle cx="40" cy="40" r="23" stroke="#c07a2c"
+            stroke-dasharray="41 104" stroke-dashoffset="-64"/>
+    <circle cx="40" cy="40" r="23" stroke="#4f8a68"
+            stroke-dasharray="34 111" stroke-dashoffset="-108"/>
+  </g>
+</svg>
